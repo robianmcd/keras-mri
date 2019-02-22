@@ -7,6 +7,7 @@ setuptools.setup(
     name="keras-mri",
     version="0.0.1",
     author="Rob McDiarmid",
+    author_email="robianmcd@gmail.com",
     description="Neural network visualization tool for Keras",
     long_description=long_description,
     long_description_content_type="text/markdown",

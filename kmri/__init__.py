@@ -1,2 +1,1 @@
-name = 'Keras MRI'
-
+from kmri.visualizer import visualize_model

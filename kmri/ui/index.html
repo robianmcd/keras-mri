@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Network Visualizer</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <chrome-dino-app></chrome-dino-app>
+    </div>
+
+    <!--3rd Party Libraries-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <!--Vue Services-->
+    <script src="services/constants.js"></script>
+    <script src="services/api.js"></script>
+    <script src="services/model-store.js"></script>
+    <script src="services/d3-controller.js"></script>
+
+    <!--Vue Mixins-->
+    <script src="mixins/layer.mixin.js"></script>
+    <script src="mixins/layer-renderer-1d.mixin.js"></script>
+    <script src="mixins/layer-renderer-2d.mixin.js"></script>
+    <script src="mixins/one-to-one-edge-renderer.mixin.js"></script>
+    <script src="mixins/fully-connected-edge-renderer.mixin.js"></script>
+
+    <!--Vue Components-->
+    <script src="components/chrome-dino-app.comp.js"></script>
+    <script src="components/layer/generic-layer.comp.js"></script>
+    <script src="components/layer/input-layer.comp.js"></script>
+    <script src="components/layer/dense-layer.comp.js"></script>
+    <script src="components/layer/flatten-layer.comp.js"></script>
+    <script src="components/layer/concatenate-layer.comp.js"></script>
+    <script src="components/layer/conv-2d-layer.comp.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app'
+        });
+    </script>
+
+</body>
+</html>
