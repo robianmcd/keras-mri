@@ -3,8 +3,6 @@ Keras MRI is a neural network visualization tool for Keras.
 
 
 ## TODOs
- - Dynamic layer width
- - Make pip package
  - test with other networks
  - support common layers. e.g. activation, max pooling, dropout?
  - Add buttons for play/pause/next
@@ -28,6 +26,7 @@ pip install -e .
 **Deploy**
 
 ```
+# Delete build, dist, and egg-info
 python setup.py sdist bdist_wheel
 python -m twine upload dist/*
 ```
