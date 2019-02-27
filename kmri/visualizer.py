@@ -18,8 +18,10 @@ def visualize_model(model, inputs_batch):
         raise ValueError(f'Expected number of inputs in inputs_batch ({len(inputs_batch)}) to match the number of input layers in the model ({len(model.inputs)})')
 
     for i, input_batch in enumerate(inputs_batch):
+
+
         for dim_i, layer_dim in enumerate(model.inputs[i].shape.as_list()):
-            if layer_dim is not None and layer_dim != input_batch.shape[dim_i]:
+            if layer_dim is not None and (len(input_batch.shape) <= dim_i or layer_dim != input_batch.shape[dim_i]):
                 raise ValueError(f'Expected the shape of inputs_batch[{i}] {input_batch.shape} to match the shape of the corresponding input layer {model.inputs[i].shape}')
 
     if len(model.inputs) > 1:

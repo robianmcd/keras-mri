@@ -1,19 +1,27 @@
 # Keras MRI
 Keras MRI is a neural network visualization tool for Keras.
 
+# Install
 
-## TODOs
- - test with other networks
- - support common layers. e.g. activation, max pooling, dropout?
- - Add buttons for play/pause/next
- - expand/colapse nodes. Maybe use different edge rendering technique when expanded 
- 
- - Show edge weights / show edge outputs
- - Show convolutional filters
-    - https://www.analyticsvidhya.com/blog/2018/03/essentials-of-deep-learning-visualizing-convolutional-neural-networks/
- - Integrate visualization techniques from https://raghakot.github.io/keras-vis/
- - add configurable labels/icons for input/output layers
- - Show node value in tooltip
+```sh
+pip install keras-mri
+```
+
+# Usage
+
+```python
+import kmri
+
+from keras.models import Sequential
+from keras.layers import Dense
+
+model = Sequential([
+    Dense(8, input_shape=(3,))
+])
+
+input_batch = [[1,2,3], [7,8,9]]
+kmri.visualize_model(model, input_batch)
+```
  
 ## Development
 
