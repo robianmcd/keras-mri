@@ -24,6 +24,9 @@
 
         let imgBuffers = [];
 
+        let maxValue = nestedArrayReducer(channelArray, -Infinity, Math.max);
+        let minValue = nestedArrayReducer(channelArray, Infinity, Math.min);
+
         for(let channel = 0; channel < numChannels; channel++) {
             let buffer = new Uint8ClampedArray(width * height * pointArea * 4);
 
@@ -42,7 +45,7 @@
                             let pixelRow = y * pointSize + innerPointYOffset;
                             let pixelCol = x * pointSize + innerPointXOffset;
                             let pixelOffset = (pixelRow * width * pointSize + pixelCol) * 4;
-                            let greyscaleValue = channelArray[y][x][channel] * 255;
+                            let greyscaleValue = (channelArray[y][x][channel] - minValue) / (maxValue - minValue) * 255;
 
                             buffer[pixelOffset] = greyscaleValue; // Red
                             buffer[pixelOffset + 1] = greyscaleValue; // Green
@@ -60,12 +63,19 @@
         return imgBuffers
     }
 
+    function nestedArrayReducer(arr, initialValue, reducer) {
+        return arr.reduce((acc, cur) => {
+            if (Array.isArray(cur)) {
+                cur = nestedArrayReducer(cur, initialValue, reducer);
+            }
+            return reducer(acc, cur);
+        }, initialValue)
+    }
+
     window.LayerRenderer2DMixin = {
-        data: function() {
-            return {
-                layerRenderer2DPixelPositions: [],
-                layerRenderer2DNodeElems: []
-            };
+        created: function() {
+            this.layerRenderer2DPixelPositions = [];
+            this.layerRenderer2DNodeElems = [];
         },
         methods: {
             render2D: function (outputs, nodeContainerElem) {

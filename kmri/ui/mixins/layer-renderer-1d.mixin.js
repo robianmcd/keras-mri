@@ -6,7 +6,7 @@
     let borderMargin = 2;
     let radiusX = (nodeWidth - borderMargin) / 2;
     let radiusY = (nodeHeight - borderMargin) / 2;
-    let nodesPerElipse = 3;
+    let nodesPerEllipsis = 3;
     let canvasMaxWidth = 458;
 
     function getCanvas(nodeContainerElem) {
@@ -78,14 +78,12 @@
         ctx.stroke();
     }
 
-    const MAX_TRUNCATED_NODES = 40;
+    const MAX_TRUNCATED_NODES = 42;
 
     window.LayerRenderer1DMixin = {
-        data: function() {
-            return {
-                layerRenderer1DNodeCanvas: undefined,
-                layerRenderer1DRelNodePositions: []
-            };
+        created: function() {
+            this.layerRenderer1DNodeCanvas = undefined;
+            this.layerRenderer1DRelNodePositions = [];
         },
         methods: {
             render1D: function(outputs, nodeContainerElem, truncate=true, normalize=true) {
@@ -125,7 +123,7 @@
                         let numNodesForLayer = numNodesByInputIndex[inputLayerI];
                         let truncateLayer = (getNumLayerNodes(inputLayer) > numNodesForLayer);
                         if (truncateLayer) {
-                            numNodesForLayer -= nodesPerElipse;
+                            numNodesForLayer -= nodesPerEllipsis;
                         }
 
 
@@ -135,7 +133,7 @@
                             drawNode(nodeI, output, nodesPerRow, maxOutput, truncateNode, ctx, this.layerRenderer1DRelNodePositions, inputLayerI);
 
                             if(truncateNode) {
-                                nodeI += nodesPerElipse;
+                                nodeI += nodesPerEllipsis;
                             }
                         }
 

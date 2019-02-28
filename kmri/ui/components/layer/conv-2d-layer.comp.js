@@ -17,7 +17,7 @@
         </div>
         <div class="layer__info-row">
             <div class="layer__info-label">Output Shape:</div>
-            <div class="layer__info-value">{{layer.outputShape[0]}}x{{layer.outputShape[1]}} x{{layer.outputShape[2]}}</div>
+            <div class="layer__info-value">{{layer.outputShape[0]}}x{{layer.outputShape[1]}}x{{layer.outputShape[2]}}</div>
         </div>
     </div>
     <div class="layer__nodes" ref="node_container"></div>

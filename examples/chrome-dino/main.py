@@ -35,7 +35,7 @@ model.load_weights(weights_path)
 
 labeled_input = np.loadtxt(labeled_path, delimiter=',')
 
-read_img = lambda file_name: imageio.imread(os.path.join(img_path, file_name)).reshape(38,150,1)
+read_img = lambda file_name: imageio.imread(os.path.join(img_path, file_name)).reshape(38,150,1) / 255
 img_input = np.array([read_img(file_name) for file_name in os.listdir(img_path)])
 
 
