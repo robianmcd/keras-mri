@@ -10,6 +10,7 @@
     layerCompMap.set('Flatten', 'flatten-layer');
     layerCompMap.set('Concatenate', 'concatenate-layer');
     layerCompMap.set('Conv2D', 'conv-2d-layer');
+    layerCompMap.set('MaxPooling2D', 'max-pooling-2d-layer');
 
     let template = `
 <div class="chrome-dino-app" ref="app">

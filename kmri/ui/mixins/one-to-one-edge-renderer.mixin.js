@@ -34,6 +34,10 @@
                         .forEach((inputNodePos, inputNodeI) => {
                             let curLayerNodePos = curLayerNodePositions[curLayerNodeI];
 
+                            if(!curLayerNodePos) {
+                                return;
+                            }
+
                             //TODO: move edge drawing into shared location
                             let elipseOffset = pointToElipse ? 20 : 0;
                             ctx.beginPath();

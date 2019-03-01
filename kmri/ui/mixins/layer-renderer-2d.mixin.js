@@ -183,7 +183,8 @@
                     let canvasRect = nodeCanvas.getBoundingClientRect();
                     return {
                         x: canvasRect.left + document.documentElement.scrollLeft + canvasRect.width/2,
-                        y: canvasRect.top + document.documentElement.scrollTop + canvasRect.height/2
+                        y: canvasRect.top + document.documentElement.scrollTop + canvasRect.height/2,
+                        inputLayerI: relPos.inputLayerI
                     };
                 });
 
