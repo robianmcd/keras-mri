@@ -1,0 +1,2 @@
+Keras==2.2.4
+keras-mri==0.0.2

@@ -1,5 +1,6 @@
 (function(){
     let EdgeTypeEnum = window.EdgeTypeEnum;
+    let LayerMixin = window.LayerMixin;
 
     let nodeWidth = 10;
     let nodeHeight = 10;
@@ -21,34 +22,6 @@
         return canvas;
     }
 
-    function getNumLayerNodes(layer) {
-        return layer.outputShape.reduce((dimension, total) => total * dimension, 1);
-    }
-
-    function getNumNodesByInputIndex(inputLayers, totalNodesShown) {
-        //Indicies of input layers ordered but the number of nodes in the input layer (ascending)
-        let layerOrder = inputLayers
-            .map((layer, i) => ({layer, i}))
-            .sort((l1, l2) => {
-                l1NumNodes = getNumLayerNodes(l1.layer);
-                l2NumNodes = getNumLayerNodes(l2.layer);
-
-                return l1NumNodes - l2NumNodes;
-            })
-            .map(l => l.i);
-
-        let numRemainingNodes = totalNodesShown;
-        let numNodesByInputIndex = [];
-        layerOrder.forEach((layerI, i) => {
-            numNodesByInputIndex[layerI] = Math.min(
-                Math.floor(numRemainingNodes / (inputLayers.length - i)),
-                getNumLayerNodes(inputLayers[layerI])
-            );
-        });
-
-        return numNodesByInputIndex;
-    }
-
     function drawNode(i, output, nodesPerRow, maxOutput, truncate, ctx, nodePositions, inputLayerI) {
         let row = Math.floor(i / nodesPerRow);
         let iInRow = i % nodesPerRow;
@@ -61,6 +34,9 @@
             ctx.font = "24px Arial";
             ctx.fillStyle = "black";
             ctx.fillText(`...`, centerX, centerY);
+
+            nodePositions.push({x: centerX + 15, y: centerY, inputLayerI, catchAll: true});
+
             centerX += 30;
         }
 
@@ -69,7 +45,7 @@
         ctx.beginPath();
         ctx.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, 2 * Math.PI);
 
-        nodePositions.push({x: centerX, y: centerY, inputLayerI});
+        nodePositions.push({x: centerX, y: centerY, inputLayerI, catchAll: false});
         //ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = `hsl(200,80%,${100 - outputPercent/2}%)`;
         ctx.fill();
@@ -114,14 +90,14 @@
                         .map(name => modelStore.layerMap.get(name))
                         .filter(layer => layer.comp && layer.comp.getNodePositions);
 
-                    let numNodesByInputIndex = getNumNodesByInputIndex(inputLayers, numNodesShown);
+                    let numNodesByInputIndex = LayerMixin.getNumNodesByInputIndex(inputLayers, numNodesShown);
 
                     let layerNodeOffset = 0;
                     let nodeI = 0;
 
                     inputLayers.forEach((inputLayer, inputLayerI) => {
                         let numNodesForLayer = numNodesByInputIndex[inputLayerI];
-                        let truncateLayer = (getNumLayerNodes(inputLayer) > numNodesForLayer);
+                        let truncateLayer = (LayerMixin.getNumLayerNodes(inputLayer) > numNodesForLayer);
                         if (truncateLayer) {
                             numNodesForLayer -= nodesPerEllipsis;
                         }
@@ -137,7 +113,7 @@
                             }
                         }
 
-                        layerNodeOffset += getNumLayerNodes(inputLayer);
+                        layerNodeOffset += LayerMixin.getNumLayerNodes(inputLayer);
                     });
 
                 } else {
@@ -154,7 +130,8 @@
                     return {
                         x: relPos.x + canvasRect.left + document.documentElement.scrollLeft,
                         y: relPos.y + canvasRect.top + document.documentElement.scrollTop,
-                        inputLayerI: relPos.inputLayerI
+                        inputLayerI: relPos.inputLayerI,
+                        catchAll: relPos.catchAll
                     }
                 });
             }

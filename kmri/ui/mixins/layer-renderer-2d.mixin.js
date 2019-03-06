@@ -37,6 +37,8 @@
                         x: x*pointSize*nodeScaleFactor,
                         y: y*pointSize*nodeScaleFactor,
                         channel,
+                        //TODO
+                        inputLayerI: 0,
                         pointSize
                     });
 
@@ -75,11 +77,11 @@
     window.LayerRenderer2DMixin = {
         created: function() {
             this.layerRenderer2DPixelPositions = [];
-            this.layerRenderer2DNodeElems = [];
+            this.layerRenderer2DNodePositions = [];
         },
         methods: {
             render2D: function (outputs, nodeContainerElem) {
-                this.layerRenderer2DNodeElems = [];
+                this.layerRenderer2DNodePositions = [];
                 this.layerRenderer2DPixelPositions = [];
 
                 //This results in a 650px wide layer. Info panel is 170px and layer border is 2px which leave 478px for
@@ -174,29 +176,30 @@
                     ctx.imageSmoothingEnabled = false;
                     ctx.putImageData(imageData, 0, 0);
 
-                    this.layerRenderer2DNodeElems.push(canvas);
+                    this.layerRenderer2DNodePositions.push({canvas, inputLayerI: 0});
 
                 }
             },
             get2DNodePositions: function() {
-                return this.layerRenderer2DNodeElems.map(nodeCanvas => {
-                    let canvasRect = nodeCanvas.getBoundingClientRect();
+                return this.layerRenderer2DNodePositions.map(nodePos => {
+                    let canvasRect = nodePos.canvas.getBoundingClientRect();
                     return {
                         x: canvasRect.left + document.documentElement.scrollLeft + canvasRect.width/2,
                         y: canvasRect.top + document.documentElement.scrollTop + canvasRect.height/2,
-                        inputLayerI: relPos.inputLayerI
+                        inputLayerI: 0
                     };
                 });
 
             },
             get1DNodePositions: function() {
                 return this.layerRenderer2DPixelPositions
-                    .filter(pixelPos => pixelPos.channel < this.layerRenderer2DNodeElems.length)
+                    .filter(pixelPos => pixelPos.channel < this.layerRenderer2DNodePositions.length)
                     .map(pixelPos => {
-                        let canvasRect = this.layerRenderer2DNodeElems[pixelPos.channel].getBoundingClientRect();
+                        let canvasRect = this.layerRenderer2DNodePositions[pixelPos.channel].canvas.getBoundingClientRect();
                         return {
                             x: canvasRect.left + pixelPos.x + document.documentElement.scrollLeft + pixelPos.pointSize/2,
-                            y: canvasRect.top + pixelPos.y + document.documentElement.scrollTop + pixelPos.pointSize/2
+                            y: canvasRect.top + pixelPos.y + document.documentElement.scrollTop + pixelPos.pointSize/2,
+                            inputLayerI: 0
                         };
                     });
             }

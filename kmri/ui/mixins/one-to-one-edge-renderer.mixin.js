@@ -30,6 +30,9 @@
 
                     curLayerNodeI = 0;
                     pointToElipse = false;
+
+                    //TODO: iterate while curLayerNodeI and inputLayerNodeI are < length.
+
                     inputNodePositions
                         .forEach((inputNodePos, inputNodeI) => {
                             let curLayerNodePos = curLayerNodePositions[curLayerNodeI];
