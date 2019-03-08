@@ -5,7 +5,7 @@
     <div class="layer__info">
         <div class="layer__title">Input</div>
         <div class="layer__info-row">
-            <div class="layer__info-label">Output Shape:</div>
+            <div class="layer__info-label">Shape:</div>
             <div class="layer__info-value">{{layer.outputShape.join('x')}}</div>
         </div>
     </div>

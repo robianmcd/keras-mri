@@ -24,7 +24,16 @@
                     let nodePositions = this.getNodePositions();
 
                     inputLayer.comp.getNodePositions().forEach(inputNodePos => {
+
+                        if(inputNodePos.catchAll) {
+                            return;
+                        }
+
                         nodePositions.forEach(curLayerNodePos => {
+                            if(curLayerNodePos.catchAll) {
+                                return;
+                            }
+
                             ctx.beginPath();
 
                             let x0 = inputNodePos.x - edgeCanvasRect.left - document.documentElement.scrollLeft;

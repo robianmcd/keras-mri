@@ -48,6 +48,7 @@ def visualize_model(model, inputs_batch):
         return next_input
 
     layer_outputs = [layer.output for layer in model.layers if not isinstance(layer, InputLayer)]
+
     wrappedModel = Model(inputs=model.inputs, outputs=layer_outputs)
     wrappedModel._make_predict_function()
 

@@ -3,6 +3,7 @@
  - support common layers. e.g. activation, max pooling, dropout?
  - Add buttons for play/pause/next
  - expand/colapse nodes. Maybe use different edge rendering technique when expanded 
+ - Support 2D concat layer. Right now layer-renderer-2d.mixin.js there is assumes 1 input layer
  
  - Show edge weights / show edge outputs
  - Show convolutional filters
