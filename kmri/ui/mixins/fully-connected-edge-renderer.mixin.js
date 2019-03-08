@@ -25,7 +25,6 @@
 
                     inputLayer.comp.getNodePositions().forEach(inputNodePos => {
 
-                        console.log(inputNodePos);
                         if(inputNodePos.catchAll) {
                             return;
                         }
