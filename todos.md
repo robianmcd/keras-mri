@@ -2,12 +2,15 @@
  - test with other networks
  - support common layers. e.g. activation, max pooling, dropout?
  - Add buttons for play/pause/next
- - expand/colapse nodes. Maybe use different edge rendering technique when expanded 
+ - expand/colapse nodes. Maybe use different edge rendering technique when expanded
  - Support 2D concat layer. Right now layer-renderer-2d.mixin.js there is assumes 1 input layer
  
  - Show edge weights / show edge outputs
  - Show convolutional filters
     - https://www.analyticsvidhya.com/blog/2018/03/essentials-of-deep-learning-visualizing-convolutional-neural-networks/
  - Integrate visualization techniques from https://raghakot.github.io/keras-vis/
+ - Integrate visualization techniques from lucid
+   - https://colab.research.google.com/github/tensorflow/lucid/blob/master/notebooks/tutorial.ipynb#scrollTo=N-BTF_W0fHZh
+   - https://colab.research.google.com/drive/1PPzeZi5sBN2YRlBmKsdvZPbfYtZI-pHl#scrollTo=0xH9C5m166BN
  - add configurable labels/icons for input/output layers
  - Show node value in tooltip

@@ -114,7 +114,8 @@ def visualize_model(model, inputs_batch):
 
     #performance hack to make the stringified numbers (and the resulting JSON) take up less space
     def roundOutput(arr):
-        log_digits = math.ceil(math.log10(arr.max()))
+        absolute_max = max(abs(arr.min()), abs(arr.max()))
+        log_digits = math.ceil(math.log10(absolute_max))
         precision = 2
         decimals = min(log_digits - precision, 0) * -1
         # If we don't cast to float64 the numbers get rounding errors when calling tolist()
