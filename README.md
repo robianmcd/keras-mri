@@ -23,7 +23,7 @@ input_batch = [[1,2,3], [7,8,9]]
 kmri.visualize_model(model, input_batch)
 ```
 
-# examples
+# Examples
 
 The examples folder contains models that demonstrate keras-mri usage. To run one of the examples run the following from one of the example folders
 
@@ -32,15 +32,16 @@ pip install -r requirements.txt
 python main.py
 ```
 
-[**chrome-dino**](examples/chrome-dino)
+[**chrome-dino**](examples/chrome-dino/main.py)
 
-Simple reinforcement learning model that learned to play the dinosaur game in chrome. This is based on [chrome-dino-ai](https://github.com/robianmcd/chrome-dino-ai).
+Simple reinforcement learning model that learned to play the dinosaur game in chrome. Demonstrates visualizing a convolutional neural network with multiple inputs. This is based on [chrome-dino-ai](https://github.com/robianmcd/chrome-dino-ai).
 
  ![network](examples/chrome-dino/network.gif)
 
-**img-classifier**
 
-Demos using keras-mri to visualize standard image classifieres like VGG, Inception, and ResNet. This is still a work in progress. 
+[**img-classifier**](examples/img-classifier/main.py)
+
+Demonstrates using keras-mri to visualize standard image classifieres like VGG, Inception, and ResNet. This is still a work in progress. 
  
 # Development
 
