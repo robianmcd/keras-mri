@@ -2,7 +2,7 @@ import os
 
 from keras.engine.topology import InputLayer
 from keras.models import Model
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, send_from_directory, request
 import json
 import numpy as np
 import math
@@ -16,7 +16,6 @@ cli.show_server_banner = lambda *x: None
 def visualize_model(model, inputs_batch):
     model._make_predict_function()
     multiple_inputs = len(model.inputs) > 1
-    batch_i = 0
 
     if multiple_inputs:
         if len(inputs_batch) != len(model.inputs):
@@ -35,15 +34,21 @@ def visualize_model(model, inputs_batch):
     else:
         batch_size = len(inputs_batch)
 
-    def get_next_inputs():
+    #batch_i is incremented before it is used so this will cause it to wrap around to 0 the first time a prediction is made.
+    batch_i = batch_size - 1
+
+    def get_next_inputs(reverse):
         nonlocal batch_i
+
+        if reverse:
+            batch_i = (batch_i + batch_size - 1) % batch_size
+        else:
+            batch_i = (batch_i + 1) % batch_size
 
         if multiple_inputs:
             next_input = [input[batch_i:batch_i+1] for input in inputs_batch]
         else:
             next_input = inputs_batch[batch_i:batch_i + 1]
-
-        batch_i = (batch_i + 1) % batch_size
 
         return next_input
 
@@ -79,7 +84,8 @@ def visualize_model(model, inputs_batch):
 
     @app.route("/predict")
     def predict():
-        inputs = get_next_inputs()
+        reverse = (request.args.get('reverse') == 'true')
+        inputs = get_next_inputs(reverse)
 
         outputs = wrappedModel.predict(inputs)
 

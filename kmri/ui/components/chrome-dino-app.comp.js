@@ -13,16 +13,21 @@
     layerCompMap.set('MaxPooling2D', 'max-pooling-2d-layer');
 
     let template = `
-<div class="chrome-dino-app" ref="app">
-    <template v-if="rowLayout">
-        <div class="app__row" v-for="(row, rowI) in rowLayout" :ref="'row-' + rowI">
-            <component 
-                class="app__layer" v-for="layer in row" :key="layer.id" :id="layer.id" :ref="'layer-' + layer.id"
-                :is="getLayerCompName(layer)" :layer="layer" :layerOutput="layerOutputs && layerOutputs[layer.id]">
-            </component>
+<div class="chrome-dino-app">
+    <sidebar @next="getNextOutput({})" @previous="getNextOutput({reverse: true})" class="app__side-bar"></sidebar>
+    <div class="app__content-container">
+        <div class="app__content" ref="appContent">
+            <template v-if="rowLayout">
+                <div class="app__row" v-for="(row, rowI) in rowLayout" :ref="'row-' + rowI">
+                    <component 
+                        class="app__layer" v-for="layer in row" :key="layer.id" :id="layer.id" :ref="'layer-' + layer.id"
+                        :is="getLayerCompName(layer)" :layer="layer" :layerOutput="layerOutputs && layerOutputs[layer.id]">
+                    </component>
+                </div>
+            </template>
+            <canvas id="app__edge-canvas" class="app__edge-canvas" ref="edgeCanvas"></canvas>
         </div>
-    </template>
-    <canvas id="app__edge-canvas" class="app__edge-canvas" ref="edgeCanvas"></canvas>
+    </div>
 </div>
 `;
 
@@ -39,7 +44,7 @@
                 .then(() => {
                     this.rowLayout = modelStore.rowLayout;
                 })
-                .then(() => this.getNextOutput())
+                .then(() => this.getNextOutput({}))
         },
         methods: {
             getLayerCompName: function (layer) {
@@ -47,11 +52,12 @@
                     return layerCompMap.get(layer['class_name']);
                 } else {
                     return 'generic-layer'
+
                 }
             },
 
-            getNextOutput() {
-                let getNextOutputPromise = api.getLayerOutputs()
+            getNextOutput({reverse = false}) {
+                let getNextOutputPromise = api.getLayerOutputs({reverse})
                     .then((layerOutputs => {
                         this.layerOutputs = layerOutputs;
                     }));
@@ -66,7 +72,7 @@
                             });
                         })
                         .then(() => {
-                            d3Controller.applyToContainer('.chrome-dino-app', '.app__layer');
+                            d3Controller.applyToContainer('.app__content', '.app__layer');
                         })
                         //Let DOM update with element positions from d3
                         .then(() => {
@@ -85,10 +91,6 @@
                         });
                 }
 
-                getNextOutputPromise.then(() => {
-                    // setTimeout(() => this.getNextOutput(),150);
-                });
-
                 return getNextOutputPromise;
             },
 
@@ -99,7 +101,7 @@
                         .map(layer => this.$refs['layer-' + layer.id][0].$el)
                         .reduce((maxHeight, layerElem) => Math.max(layerElem.clientHeight, maxHeight), 0);
 
-                    let rowMargin = 10;
+                    let rowMargin = 20;
                     let rowWidth = rowMargin*2 + row
                         .map(layer => {
                             let layerElem = this.$refs['layer-' + layer.id][0].$el;
@@ -111,8 +113,7 @@
                     this.$refs['row-' + rowI][0].style.height = rowHeight + 'px';
                 });
 
-
-                this.$refs['app'].style.width = maxRowWidth + 'px';
+                this.$refs['appContent'].style.width = maxRowWidth + 'px';
                 let canvas = this.$refs['edgeCanvas'];
                 canvas.width = canvas.clientWidth;
                 canvas.height = canvas.clientHeight;

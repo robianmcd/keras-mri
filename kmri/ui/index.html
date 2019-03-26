@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Network Visualizer</title>
 
-    <link rel="stylesheet" href="styles.css">
+    <link href="lib/font-awesome-5.8.1/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -12,8 +13,8 @@
     </div>
 
     <!--3rd Party Libraries-->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="lib/vue-v2.6.10.js"></script>
+    <script src="lib/d3-v5.min.js"></script>
 
     <!--Vue Services-->
     <script src="services/constants.js"></script>
@@ -37,6 +38,7 @@
     <script src="components/layer/concatenate-layer.comp.js"></script>
     <script src="components/layer/conv-2d-layer.comp.js"></script>
     <script src="components/layer/max-pooling-2d-layer.comp.js"></script>
+    <script src="components/sidebar.comp.js"></script>
 
     <script>
         new Vue({

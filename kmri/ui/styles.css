@@ -5,6 +5,10 @@ html {
     box-sizing: inherit;
 }
 
+#app {
+    height: 100vh;
+}
+
 body {
     font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif;
     font-size: 14px;
@@ -12,12 +16,36 @@ body {
 }
 
 .chrome-dino-app {
-    /*overflow-y: auto;*/
-    margin: auto;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    height:100%;
 }
 
 .app__edge-canvas {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
     z-index: 200;
+}
+
+.app__side-bar {
+    flex: 0 0 250px;
+
+    background-color: #ebebeb;
+    box-shadow: 2px 0 5px 0 #00000055;
+    position: relative;
+    z-index: 500;
+    padding: 20px;
+}
+
+.app__content-container {
+    overflow: auto;
+}
+
+.app__content {
+    position: relative;
 }
 
 .layer__canvas-2d {
@@ -31,7 +59,7 @@ body {
 
 .app__row {
     position: relative;
-    margin: 20px 10px;
+    margin: 20px;
 }
 
 .app__layer {
@@ -79,17 +107,27 @@ body {
     flex-wrap: wrap;
 }
 
-.layer__nodes canvas {
-
+.sidebar__header {
+    margin: 0;
+    font-family: "Courier New", Monaco, monospace;
+    text-align: center;
 }
 
-.chrome-dino-app {
-    position: relative;
+.sidebar__section-title {
+    margin: 10px 0 5px 0;
+    font-size: 18px;
 }
 
-.app__edge-canvas {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
+.sidebar__section-content {
+    margin-left: 10px;
+}
+
+.sidebar__button-group {
+    display: flex;
+}
+
+.sidebar__button-group > * {
+    padding: 2px;
+    margin: 0 2px;
+    cursor: pointer;
 }

@@ -37,8 +37,8 @@ class Api {
             })
     }
 
-    getLayerOutputs() {
-        return fetch('/predict')
+    getLayerOutputs({reverse = false}) {
+        return fetch(`/predict?reverse=${reverse}`)
             .then(r => r.json());
     }
 }
