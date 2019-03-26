@@ -1,5 +1,5 @@
 # Keras MRI
-Keras MRI is a neural network visualization tool for Keras.
+Keras MRI is a neural network visualization tool for Keras. This is still in Alpha and some networks and types of layers are not yet supported.
 
 # Install
 
@@ -22,6 +22,8 @@ model = Sequential([
 input_batch = [[1,2,3], [7,8,9]]
 kmri.visualize_model(model, input_batch)
 ```
+
+Once this is running navigate to [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
 # Examples
 
@@ -54,6 +56,8 @@ pip install -e .
 **Deploy**
 
 ```
+# increase version number in setup.py
+# commit and push
 # Delete build, dist, and egg-info
 python setup.py sdist bdist_wheel
 python -m twine upload dist/*

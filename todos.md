@@ -1,7 +1,6 @@
  - hide network while loading
  - test with other networks
- - support common layers. e.g. activation, max pooling, dropout?
- - Add buttons for play/pause/next
+ - support common layers. e.g. activation, dropout?
  - expand/colapse nodes. Maybe use different edge rendering technique when expanded
  - Support 2D concat layer. Right now layer-renderer-2d.mixin.js there is assumes 1 input layer
  

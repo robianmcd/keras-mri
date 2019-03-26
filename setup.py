@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="keras-mri",
-    version="0.0.2",
+    version="0.0.3",
     author="Rob McDiarmid",
     author_email="robianmcd@gmail.com",
     description="Neural network visualization tool for Keras",
