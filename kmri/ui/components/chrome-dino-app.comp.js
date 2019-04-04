@@ -2,15 +2,7 @@
     let api = window.api;
     let modelStore = window.modelStore;
     let d3Controller = window.d3Controller;
-
-    //Maps layer type to layer component name
-    let layerCompMap = new Map();
-    layerCompMap.set('InputLayer', 'input-layer');
-    layerCompMap.set('Dense', 'dense-layer');
-    layerCompMap.set('Flatten', 'flatten-layer');
-    layerCompMap.set('Concatenate', 'concatenate-layer');
-    layerCompMap.set('Conv2D', 'conv-2d-layer');
-    layerCompMap.set('MaxPooling2D', 'max-pooling-2d-layer');
+    let layerRegistry = window.layerRegistry;
 
     let template = `
 <div class="chrome-dino-app">
@@ -48,12 +40,7 @@
         },
         methods: {
             getLayerCompName: function (layer) {
-                if (layerCompMap.has(layer['class_name'])) {
-                    return layerCompMap.get(layer['class_name']);
-                } else {
-                    return 'generic-layer'
-
-                }
+                return layerRegistry.lookupComponentName(layer['class_name']) || 'generic-layer';
             },
 
             getNextOutput({reverse = false}) {

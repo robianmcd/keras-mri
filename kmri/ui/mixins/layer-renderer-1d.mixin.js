@@ -37,7 +37,7 @@
 
             nodePositions.push({x: centerX + 15, y: centerY, inputLayerI, catchAll: true});
 
-            centerX += 30;
+            centerX += nodeWidth * nodesPerEllipsis;
         }
 
         let outputPercent = Math.round(output/Math.max(1, maxOutput) * 100);
@@ -54,7 +54,7 @@
         ctx.stroke();
     }
 
-    const MAX_TRUNCATED_NODES = 42;
+    const MAX_ROW_NODES = 43;
 
     window.LayerRenderer1DMixin = {
         created: function() {
@@ -81,7 +81,7 @@
                 }
                 let maxOutput = Math.max(...outputs);
 
-                let numNodesShown = truncate ? Math.min(MAX_TRUNCATED_NODES, outputs.length) : outputs.length;
+                let numNodesShown = truncate ? Math.min(MAX_ROW_NODES, outputs.length) : outputs.length;
 
                 this.layerRenderer1DRelNodePositions = [];
 
@@ -117,8 +117,12 @@
                     });
 
                 } else {
+                    if (outputs.length > MAX_ROW_NODES) {
+                        numNodesShown -= nodesPerEllipsis;
+                    }
+
                     for (let i = 0; i < numNodesShown; i++) {
-                        let truncateNode = (i + 1 === MAX_TRUNCATED_NODES);
+                        let truncateNode = (outputs.length > MAX_ROW_NODES) && (i === numNodesShown - 1);
                         drawNode(i, outputs[i], nodesPerRow, maxOutput, truncateNode, ctx, this.layerRenderer1DRelNodePositions, -1);
                     }
                 }

@@ -14,7 +14,6 @@
         let ctx = edgeCanvas.getContext("2d");
 
         //TODO: move edge drawing into shared location
-        // let elipseOffset = pointToElipse ? 20 : 0;
         ctx.beginPath();
 
         let x0 = fromNodePos.x - edgeCanvasRect.left - document.documentElement.scrollLeft;
@@ -24,15 +23,15 @@
 
         if(toNodePos.catchAll) {
             let gradient = ctx.createLinearGradient(x0, y0, x1, y1);
-            gradient.addColorStop("0", "#3d3d3d");
-            gradient.addColorStop("0.5", "#3d3d3d");
-            gradient.addColorStop("1.0", "white");
+            gradient.addColorStop(0, "#3d3d3d");
+            gradient.addColorStop(0.5, "#3d3d3d");
+            gradient.addColorStop(1, "#ffffff00");
             ctx.strokeStyle = gradient;
         } else if(fromNodePos.catchAll) {
             let gradient = ctx.createLinearGradient(x0, y0, x1, y1);
-            gradient.addColorStop("0", "white");
-            gradient.addColorStop("0.5", "#3d3d3d");
-            gradient.addColorStop("1.0", "#3d3d3d");
+            gradient.addColorStop(0, "#ffffff00");
+            gradient.addColorStop(0.5, "#3d3d3d");
+            gradient.addColorStop(1, "#3d3d3d");
             ctx.strokeStyle = gradient;
         } else {
             ctx.strokeStyle = '#3d3d3d';
@@ -68,7 +67,7 @@
                     .filter(layer => layer.comp);
 
                 inputLayers.forEach((inputLayer, layerI) => {
-                    let inputNodePositions = inputLayer.comp.getNodePositions(this.getNodeDimension());
+                    let inputNodePositions = this.getInputLayerNodePosition(inputLayer);
 
                     let curLayerNodePositions = this.getNodePositions()
                         .filter(nodePos => nodePos.inputLayerI === layerI);

@@ -1,6 +1,10 @@
  - hide network while loading
  - test with other networks
- - support common layers. e.g. activation, dropout?
+ - support common layers. e.g. 
+    - activation
+    - Batch Normalization
+    - add
+    - dropout?
  - expand/colapse nodes. Maybe use different edge rendering technique when expanded
  - Support 2D concat layer. Right now layer-renderer-2d.mixin.js there is assumes 1 input layer
  
@@ -13,3 +17,4 @@
    - https://colab.research.google.com/drive/1PPzeZi5sBN2YRlBmKsdvZPbfYtZI-pHl#scrollTo=0xH9C5m166BN
  - add configurable labels/icons for input/output layers
  - Show node value in tooltip
+ - Add support for models with None in their input shape (e.g. InceptionV3). We could use the shape of the provided input if this happens.

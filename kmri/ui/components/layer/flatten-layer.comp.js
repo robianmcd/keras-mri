@@ -1,5 +1,6 @@
 (function(){
     let modelStore = window.modelStore;
+    let layerRegistry = window.layerRegistry;
 
     let template = `
 <div class="input-layer">
@@ -56,5 +57,7 @@
             }
         }
     });
+
+    layerRegistry.register('Flatten', 'flatten-layer');
 
 })();

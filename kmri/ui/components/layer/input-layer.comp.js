@@ -1,4 +1,5 @@
 (function(){
+    let layerRegistry = window.layerRegistry;
 
     let template = `
 <div class="input-layer">
@@ -24,5 +25,6 @@
 
         }
     });
+    layerRegistry.register('InputLayer', 'input-layer');
 
 })();

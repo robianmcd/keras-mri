@@ -75,7 +75,7 @@
             Object.assign(ellipsisElem.style, {
                 font: '24px Arial',
                 position: 'relative',
-                top: '-8px',
+                'padding-bottom': '11px',
                 width: ellipsisWidth + 'px'
 
             });

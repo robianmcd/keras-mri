@@ -42,6 +42,7 @@ body {
 
 .app__content-container {
     overflow: auto;
+    flex: 1 1;
 }
 
 .app__content {

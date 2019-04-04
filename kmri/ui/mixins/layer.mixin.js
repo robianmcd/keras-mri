@@ -1,13 +1,11 @@
-(function() {
+(function () {
     window.LayerMixin = {
         props: ['layer', 'layerOutput'],
-        created: function() {
+        created: function () {
             this.layer.comp = this;
         },
-        data: function() {
-            return {
-
-            };
+        data: function () {
+            return {};
         },
         methods: {
             getNodePositions(dim) {
@@ -21,12 +19,15 @@
             getNodeDimension() {
                 return Math.max(1, this.layer.outputShape.length - 1)
             },
+            getInputLayerNodePosition(inputLayer) {
+                return inputLayer.comp.getNodePositions(this.getNodeDimension());
+            },
             onLayerOutputChange() {
                 this.render(this.layerOutput, this.$refs['node_container']);
             }
         },
         watch: {
-            layerOutput: function() {
+            layerOutput: function () {
                 this.onLayerOutputChange();
             }
         },
@@ -46,8 +47,10 @@
             const MIN_NODES_PER_LAYER = 2;
 
             let numRemainingNodes = totalNodesShown;
-            //reserve at least 2 nodes for the last layer
-            numRemainingNodes -= 2;
+            if (inputLayers.length > 1) {
+                //reserve at least 2 nodes for the last layer
+                numRemainingNodes -= 2;
+            }
             let numNodesByInputIndex = [];
             layerOrder.forEach((layerI, i) => {
                 let nodesForCurLayer = Math.min(
@@ -57,7 +60,7 @@
 
                 nodesForCurLayer = Math.max(nodesForCurLayer, MIN_NODES_PER_LAYER);
                 //If there aren't going to be any nodes left for the last layer then skip each layer until we get to the last layer
-                if(numRemainingNodes - MIN_NODES_PER_LAYER - nodesForCurLayer < 0 && i < layerOrder.length - 1) {
+                if (numRemainingNodes - MIN_NODES_PER_LAYER - nodesForCurLayer < 0 && i < layerOrder.length - 1) {
                     nodesForCurLayer = 0;
                 }
 

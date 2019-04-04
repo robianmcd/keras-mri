@@ -1,4 +1,6 @@
 (function(){
+    let layerRegistry = window.layerRegistry;
+
     let template = `
 <div class="conv-2d-layer">
         <div class="layer__info">
@@ -35,6 +37,6 @@
 
         }
     });
-
+    layerRegistry.register('Conv2D', 'conv-2d-layer');
 
 })();
