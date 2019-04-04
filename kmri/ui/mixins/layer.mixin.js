@@ -74,6 +74,40 @@
 
         getNumLayerNodes(layer) {
             return layer.outputShape.reduce((dimension, total) => total * dimension, 1);
+        },
+
+        drawEdge(fromNodePos, toNodePos) {
+            let edgeCanvas = document.getElementById("app__edge-canvas");
+            let edgeCanvasRect = edgeCanvas.getBoundingClientRect();
+            let ctx = edgeCanvas.getContext("2d");
+
+            ctx.beginPath();
+
+            let x0 = fromNodePos.x - edgeCanvasRect.left - document.documentElement.scrollLeft;
+            let y0 = fromNodePos.y - edgeCanvasRect.top - document.documentElement.scrollTop;
+            let x1 = toNodePos.x - edgeCanvasRect.left - document.documentElement.scrollLeft;
+            let y1 = toNodePos.y - edgeCanvasRect.top - document.documentElement.scrollTop;
+
+            if(toNodePos.catchAll) {
+                let gradient = ctx.createLinearGradient(x0, y0, x1, y1);
+                gradient.addColorStop(0, "#3d3d3d");
+                gradient.addColorStop(0.5, "#3d3d3d");
+                gradient.addColorStop(1, "#ffffff00");
+                ctx.strokeStyle = gradient;
+            } else if(fromNodePos.catchAll) {
+                let gradient = ctx.createLinearGradient(x0, y0, x1, y1);
+                gradient.addColorStop(0, "#ffffff00");
+                gradient.addColorStop(0.5, "#3d3d3d");
+                gradient.addColorStop(1, "#3d3d3d");
+                ctx.strokeStyle = gradient;
+            } else {
+                ctx.strokeStyle = '#3d3d3d';
+            }
+            ctx.globalAlpha = 0.4;
+            ctx.lineWidth = 1;
+            ctx.moveTo(x0, y0);
+            ctx.lineTo(x1, y1);
+            ctx.stroke();
         }
     };
 

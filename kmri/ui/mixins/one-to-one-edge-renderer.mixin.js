@@ -1,54 +1,7 @@
 (function() {
     let modelStore = window.modelStore;
     let EdgeTypeEnum = window.EdgeTypeEnum;
-
-    function linkNodes(fromNodePos, toNodePos) {
-        // let curLayerNodePos = curLayerNodePositions[curLayerNodeI];
-
-        // if(!curLayerNodePos) {
-        //     return;
-        // }
-
-        let edgeCanvas = document.getElementById("app__edge-canvas");
-        let edgeCanvasRect = edgeCanvas.getBoundingClientRect();
-        let ctx = edgeCanvas.getContext("2d");
-
-        //TODO: move edge drawing into shared location
-        ctx.beginPath();
-
-        let x0 = fromNodePos.x - edgeCanvasRect.left - document.documentElement.scrollLeft;
-        let y0 = fromNodePos.y - edgeCanvasRect.top - document.documentElement.scrollTop;
-        let x1 = toNodePos.x - edgeCanvasRect.left - document.documentElement.scrollLeft;
-        let y1 = toNodePos.y - edgeCanvasRect.top - document.documentElement.scrollTop;
-
-        if(toNodePos.catchAll) {
-            let gradient = ctx.createLinearGradient(x0, y0, x1, y1);
-            gradient.addColorStop(0, "#3d3d3d");
-            gradient.addColorStop(0.5, "#3d3d3d");
-            gradient.addColorStop(1, "#ffffff00");
-            ctx.strokeStyle = gradient;
-        } else if(fromNodePos.catchAll) {
-            let gradient = ctx.createLinearGradient(x0, y0, x1, y1);
-            gradient.addColorStop(0, "#ffffff00");
-            gradient.addColorStop(0.5, "#3d3d3d");
-            gradient.addColorStop(1, "#3d3d3d");
-            ctx.strokeStyle = gradient;
-        } else {
-            ctx.strokeStyle = '#3d3d3d';
-        }
-        ctx.globalAlpha = 0.4;
-        ctx.lineWidth = 1;
-        ctx.moveTo(x0, y0);
-        ctx.lineTo(x1, y1);
-        ctx.stroke();
-
-        // if(curLayerNodeI < curLayerNodePositions.length - 2 || inputNodeI + 1 === inputNodePositions.length - 1) {
-        //     curLayerNodeI++;
-        //     pointToElipse = false;
-        // } else {
-        //     pointToElipse = true;
-        // }
-    }
+    let LayerMixin = window.LayerMixin;
 
     window.OneToOneEdgeRendererMixin = {
         data: function() {
@@ -96,7 +49,7 @@
                                 inputIterData.i++;
                             }
                         } else if (curLayerNodePos.catchAll !== inputNodePos.catchAll) {
-                            linkNodes(inputNodePos, curLayerNodePos);
+                            LayerMixin.drawEdge(inputNodePos, curLayerNodePos);
 
                             let catchAllIterData;
                             let normalIterData;
@@ -115,7 +68,7 @@
                             normalIterData.i++;
 
                         } else {
-                            linkNodes(inputNodePos, curLayerNodePos);
+                            LayerMixin.drawEdge(inputNodePos, curLayerNodePos);
 
                             curLayerIterData.i++;
                             inputIterData.i++;

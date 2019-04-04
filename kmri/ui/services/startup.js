@@ -4,6 +4,7 @@
     let LayerRenderer2DMixin = window.LayerRenderer2DMixin;
     let FullyConnectedEdgeRendererMixin = window.FullyConnectedEdgeRendererMixin;
     let OneToOneEdgeRendererMixin = window.OneToOneEdgeRendererMixin;
+    let OnePerInputEdgeRendererMixin = window.OnePerInputEdgeRendererMixin;
 
 
     let regularLayers = [
@@ -61,6 +62,11 @@
                     return inputLayer.comp.getNodePositions(2);
                 }
             }
+        },
+        {
+            className: 'Add',
+            componentName: 'add-layer',
+            mixins: [LayerRenderer1DMixin, LayerRenderer2DMixin, OnePerInputEdgeRendererMixin]
         }
     ];
 
