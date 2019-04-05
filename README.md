@@ -43,7 +43,9 @@ Simple reinforcement learning model that learned to play the dinosaur game in ch
 
 [**img-classifier**](examples/img-classifier/main.py)
 
-Demonstrates using keras-mri to visualize standard image classifieres (VGG, MobileNet, and ResNet). This is still a work in progress. 
+Demonstrates using keras-mri to visualize standard image classifieres (VGG, MobileNet, and ResNet). 
+ 
+ ![network](examples/img-classifier/network.png)
  
 # Development
 

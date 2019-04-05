@@ -4,7 +4,10 @@
     let template = `
 <div class="input-layer">
     <div class="layer__info">
-        <div class="layer__title">Input</div>
+        <div class="layer__title">
+            <div>Input</div>
+            <div class="layer__title-subtext">({{layer.name}})</div>
+        </div>
         <div class="layer__info-row">
             <div class="layer__info-label">Shape:</div>
             <div class="layer__info-value">{{layer.outputShape.join('x')}}</div>

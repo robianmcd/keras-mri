@@ -4,7 +4,10 @@
     let template = `
 <div class="conv-2d-layer">
         <div class="layer__info">
-        <div class="layer__title">Conv 2D</div>
+        <div class="layer__title">
+            <div>Conv2D</div>
+            <div class="layer__title-subtext">({{layer.name}})</div>
+        </div>
         <div class="layer__info-row">
             <div class="layer__info-label">Activation:</div>
             <div class="layer__info-value">{{layer.config.activation}}</div>
