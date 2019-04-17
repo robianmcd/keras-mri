@@ -17,7 +17,7 @@
     }
 
     function imageBuffersFromChannelArray(channelArray, pointSize) {
-        let pointArea = pointSize**2;
+        let pointArea = Math.pow(pointSize, 2);
         let height = channelArray.length;
         let width = channelArray[0].length;
         let numChannels = channelArray[0][0].length;
