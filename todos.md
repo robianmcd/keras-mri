@@ -1,6 +1,5 @@
- - hide network while loading
  - support common layers. e.g. 
- - dropout
+    - dropout
  - add firefox support
      
  - test with other networks

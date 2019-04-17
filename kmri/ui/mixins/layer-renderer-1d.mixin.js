@@ -43,7 +43,10 @@
         let outputPercent = Math.round(output/Math.max(1, maxOutput) * 100);
 
         ctx.beginPath();
-        ctx.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, 2 * Math.PI);
+
+        ctx.arc(centerX, centerY, radiusX, 0, 2 * Math.PI, false);
+        //Ellipse is broken in firefox https://bugzilla.mozilla.org/show_bug.cgi?id=1135244
+        //ctx.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, 2 * Math.PI);
 
         nodePositions.push({x: centerX, y: centerY, inputLayerI, catchAll: false});
         //ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);

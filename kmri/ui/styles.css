@@ -46,6 +46,23 @@ body {
     flex: 1 1;
 }
 
+.app__loading-ovrelay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 300;
+}
+
+.app__loading-ovrelay > img {
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 250px/2);
+    transform: translate(-50%, -50%);
+}
+
 .app__content {
     position: relative;
     /*Exporting to png cuts off the bottom of the image without this padding. ¯\_(ツ)_/¯*/
@@ -140,3 +157,9 @@ body {
     margin: 0 2px;
     cursor: pointer;
 }
+
+.sidebar__button--disabled {
+    color: #6f6f6f;
+    cursor: pointer;
+}
+

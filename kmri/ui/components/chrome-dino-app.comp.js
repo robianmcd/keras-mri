@@ -6,7 +6,13 @@
 
     let template = `
 <div class="chrome-dino-app">
-    <sidebar @next="getNextOutput({})" @previous="getNextOutput({reverse: true})" class="app__side-bar"></sidebar>
+    <sidebar 
+        @next="getNextOutput({})" 
+        @previous="getNextOutput({reverse: true})" 
+        class="app__side-bar" 
+        :loading="loading"
+        :showLoadingState="showLoadingState">
+    </sidebar>
     <div class="app__content-container">
         <div class="app__content" ref="appContent">
             <template v-if="rowLayout">
@@ -17,8 +23,11 @@
                     </component>
                 </div>
             </template>
-            <canvas id="app__edge-canvas" class="app__edge-canvas" ref="edgeCanvas"></canvas>
+            <canvas id="app__edge-canvas" class="app__edge-canvas" ref="edgeCanvas"></canvas> 
         </div>
+    </div>
+    <div class="app__loading-ovrelay" v-if="showLoadingState">
+        <img src="loading.svg" alt="loading...">
     </div>
 </div>
 `;
@@ -29,14 +38,21 @@
             model: undefined,
             rowLayout: undefined,
             layerOutputs: undefined,
-            firstUpdate: true
+            firstUpdate: true,
+            loading: false,
+            showLoadingState: false
         }),
         created: function () {
+            this.loading = true;
+            this.showLoadingState = true;
             modelStore.load_model()
                 .then(() => {
                     this.rowLayout = modelStore.rowLayout;
                 })
-                .then(() => this.getNextOutput({}))
+                .then(() => {
+                    this.loading = false;
+                    this.getNextOutput({});
+                })
         },
         methods: {
             getLayerCompName: function (layer) {
@@ -44,6 +60,12 @@
             },
 
             getNextOutput({reverse = false}) {
+                if(this.loading) {
+                    return Promise.resolve();
+                }
+
+                this.loading = true;
+                setTimeout(() => this.loading && (this.showLoadingState = true), 1000);
                 let getNextOutputPromise = api.getLayerOutputs({reverse})
                     .then((layerOutputs => {
                         this.layerOutputs = layerOutputs;
@@ -78,7 +100,11 @@
                         });
                 }
 
-                return getNextOutputPromise;
+                return getNextOutputPromise
+                    .then(() => {
+                        this.loading = false;
+                        this.showLoadingState = false;
+                    });
             },
 
             resizeRows: function() {
