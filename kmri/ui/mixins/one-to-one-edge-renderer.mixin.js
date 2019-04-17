@@ -49,7 +49,7 @@
                                 inputIterData.i++;
                             }
                         } else if (curLayerNodePos.catchAll !== inputNodePos.catchAll) {
-                            LayerMixin.drawEdge(inputNodePos, curLayerNodePos);
+                            LayerMixin.drawEdge(inputNodePos, curLayerNodePos, this.dottedLine);
 
                             let catchAllIterData;
                             let normalIterData;
@@ -68,7 +68,7 @@
                             normalIterData.i++;
 
                         } else {
-                            LayerMixin.drawEdge(inputNodePos, curLayerNodePos);
+                            LayerMixin.drawEdge(inputNodePos, curLayerNodePos, this.dottedLine);
 
                             curLayerIterData.i++;
                             inputIterData.i++;

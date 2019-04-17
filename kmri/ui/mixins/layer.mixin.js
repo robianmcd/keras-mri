@@ -76,7 +76,7 @@
             return layer.outputShape.reduce((dimension, total) => total * dimension, 1);
         },
 
-        drawEdge(fromNodePos, toNodePos) {
+        drawEdge(fromNodePos, toNodePos, dottedLine = false) {
             let edgeCanvas = document.getElementById("app__edge-canvas");
             let edgeCanvasRect = edgeCanvas.getBoundingClientRect();
             let ctx = edgeCanvas.getContext("2d");
@@ -105,9 +105,16 @@
             }
             ctx.globalAlpha = 0.4;
             ctx.lineWidth = 1;
+
+            if(dottedLine) {
+                ctx.setLineDash([5, 3]);
+            }
+
             ctx.moveTo(x0, y0);
             ctx.lineTo(x1, y1);
             ctx.stroke();
+
+            ctx.setLineDash([1, 0]);
         }
     };
 

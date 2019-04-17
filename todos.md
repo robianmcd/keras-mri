@@ -1,7 +1,3 @@
- - support common layers. e.g. 
-    - dropout
- - add firefox support
-     
  - test with other networks
  - expand/colapse nodes. Maybe use different edge rendering technique when expanded
  - Support 2D concat layer. Right now layer-renderer-2d.mixin.js there is assumes 1 input layer

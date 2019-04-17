@@ -44,6 +44,21 @@
             mixins: [LayerRenderer1DMixin, LayerRenderer2DMixin, OneToOneEdgeRendererMixin]
         },
         {
+            className: 'DepthwiseConv2D',
+            componentName: 'depthwise-conv-2d-layer',
+            mixins: [LayerRenderer2DMixin, OneToOneEdgeRendererMixin]
+        },
+        {
+            className: 'ReLU',
+            componentName: 'relu-layer',
+            mixins: [LayerRenderer1DMixin, LayerRenderer2DMixin, OneToOneEdgeRendererMixin]
+        },
+        {
+            className: 'Dropout',
+            componentName: 'dropout-layer',
+            mixins: [LayerRenderer1DMixin, LayerRenderer2DMixin, OneToOneEdgeRendererMixin, {created: function() {this.dottedLine = true;}}]
+        },
+        {
             className: 'GlobalMaxPooling2D',
             componentName: 'global-max-pooling-2d-layer',
             mixins: [LayerRenderer1DMixin, OneToOneEdgeRendererMixin],
