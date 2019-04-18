@@ -1,5 +1,5 @@
 # Keras MRI
-Keras MRI is a neural network visualization tool for Keras. This is still in Alpha and some networks and types of layers are not yet supported.
+Keras MRI is a neural network visualization tool for Keras. This is still in Beta and some networks (e.g. RNNs and 3D CNNs) and types of layers are not yet supported.
 
 # Install
 
