@@ -128,4 +128,15 @@ def visualize_model(model, inputs_batch):
         # https://stackoverflow.com/questions/20454332/precision-of-numpy-array-lost-after-tolist
         return np.around(arr.astype(np.float64), decimals)
 
+    @app.after_request
+    def add_header(r):
+        """
+        Add headers to both force latest IE rendering engine or Chrome Frame
+        Taken from https://stackoverflow.com/a/34067710/373655
+        """
+        r.headers["Pragma"] = "no-cache"
+        r.headers["Expires"] = "0"
+        r.headers['Cache-Control'] = 'public, max-age=0'
+        return r
+
     app.run()

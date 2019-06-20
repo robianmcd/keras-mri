@@ -59,7 +59,8 @@ pip install -e .
 
 ```
 # increase version number in setup.py
-# commit and push
+# Move unrelease changes to next version in changelog.md
+# commit, tag with vx.x.x, and push
 # Delete build, dist, and egg-info
 python setup.py sdist bdist_wheel
 python -m twine upload dist/*

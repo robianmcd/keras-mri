@@ -5,7 +5,7 @@
     let layerRegistry = window.layerRegistry;
 
     let template = `
-<div class="chrome-dino-app">
+<div class="keras-mri-app">
     <sidebar 
         @next="getNextOutput({})" 
         @previous="getNextOutput({reverse: true})" 
@@ -32,7 +32,7 @@
 </div>
 `;
 
-    Vue.component('chrome-dino-app', {
+    Vue.component('keras-mri-app', {
         template,
         data: () => ({
             model: undefined,
@@ -52,6 +52,11 @@
                 .then(() => {
                     this.loading = false;
                     this.getNextOutput({});
+                })
+                .catch((e) => {
+                    alert('An error occurred loading the model. Check the developer console for details');
+                    console.error(e);
+                    this.loading = false;
                 })
         },
         methods: {
@@ -102,6 +107,12 @@
 
                 return getNextOutputPromise
                     .then(() => {
+                        this.loading = false;
+                        this.showLoadingState = false;
+                    })
+                    .catch((e) => {
+                        alert('An error occurred rendering the model. Check the developer console for details');
+                        console.error(e);
                         this.loading = false;
                         this.showLoadingState = false;
                     });
